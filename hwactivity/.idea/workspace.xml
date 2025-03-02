@@ -21,59 +21,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="62ed0d90-e543-42bb-913e-87a13ee28692" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/deploymentTargetSelector.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/migrations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/proguard-rules.pro" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/androidTest/java/com/example/hw_activity/ExampleInstrumentedTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/AndroidManifest.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/java/com/example/hw_activity/MainActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/java/com/example/hw_activity/SecondActivity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/drawable/ic_launcher_foreground.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/layout/activity_second.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-anydpi/ic_launcher.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-anydpi/ic_launcher_round.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-hdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-mdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-xhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/values-night/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/values/colors.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/values/strings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/values/themes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/xml/backup_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/main/res/xml/data_extraction_rules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/app/src/test/java/com/example/hw_activity/ExampleUnitTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/build.gradle.kts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/gradle.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/gradle/libs.versions.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../hwactivity2/settings.gradle.kts" beforeDir="false" />
-    </list>
+    <list default="true" id="62ed0d90-e543-42bb-913e-87a13ee28692" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
