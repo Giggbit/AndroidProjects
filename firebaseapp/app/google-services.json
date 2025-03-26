@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "951373407516",
+    "project_id": "fir-kostanda",
+    "storage_bucket": "fir-kostanda.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:951373407516:android:f7f3af4da48db01d4e86d9",
+        "android_client_info": {
+          "package_name": "com.example.firebaseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB62onnIYOI9BDMPT5lyI3LizrKmqAHXCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
