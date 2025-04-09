@@ -1,0 +1,44 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="#F5F5F5">
+
+    <EditText
+        android:id="@+id/cityInput"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Enter city"
+        android:inputType="textPersonName"
+        android:background="@drawable/rounded_edittext"
+        android:padding="12dp"/>
+
+    <Button
+        android:id="@+id/btnGetWeather"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Weather"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="#FFF"/>
+
+    <TextView
+        android:id="@+id/weatherResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weather info will appear here"
+        android:layout_marginTop="24dp"
+        android:textSize="16sp"
+        android:textColor="#333" />
+
+    <Button
+        android:id="@+id/btnForecast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get 5-day Forecast"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFF"/>
+</LinearLayout>
