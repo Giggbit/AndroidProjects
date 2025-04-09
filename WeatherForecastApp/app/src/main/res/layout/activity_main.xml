@@ -24,6 +24,14 @@
         android:backgroundTint="#2196F3"
         android:textColor="#FFF"/>
 
+    <Button
+        android:id="@+id/btnAddToFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to Favorites"
+        android:visibility="gone"
+        android:layout_marginTop="8dp"/>
+
     <TextView
         android:id="@+id/weatherResult"
         android:layout_width="match_parent"
@@ -41,4 +49,13 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="#4CAF50"
         android:textColor="#FFF"/>
+
+    <LinearLayout
+        android:id="@+id/favoriteCitiesContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="12dp"
+        android:layout_marginTop="16dp"/>
+
 </LinearLayout>
