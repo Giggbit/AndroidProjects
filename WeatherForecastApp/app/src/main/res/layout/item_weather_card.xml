@@ -1,33 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weatherCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="4dp">
+    android:layout_marginBottom="12dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginTop="4dp"
+    app:cardBackgroundColor="@android:color/white"
+    android:background="@android:color/white"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    app:contentPadding="7dp"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/textCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="City"
+            android:text="City Name"
+            android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="#000" />
+            android:textColor="#000000"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
 
         <TextView
             android:id="@+id/textTempCard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Temp"
+            android:layout_below="@id/textCity"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="4dp"
+            android:text="Temp: 15°C"
             android:textSize="16sp"
-            android:textColor="#000" />
-    </LinearLayout>
+            android:textColor="#666666" />
 
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Weather Icon"
+            android:scaleType="fitCenter" />
+
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>

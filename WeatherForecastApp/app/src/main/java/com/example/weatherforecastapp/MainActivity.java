@@ -1,23 +1,33 @@
 package com.example.weatherforecastapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.weatherforecastapp.adapters.FavoriteCityAdapter;
+import com.example.weatherforecastapp.db.AppDatabase;
+import com.example.weatherforecastapp.db.FavoriteCity;
+import com.example.weatherforecastapp.db.FavoriteCityDao;
 import com.example.weatherforecastapp.models.WeatherResponse;
 import com.example.weatherforecastapp.network.WeatherApiClient;
 import com.example.weatherforecastapp.network.WeatherApiService;
+import com.github.mikephil.charting.BuildConfig;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,136 +35,156 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText cityInput;
-    private Button btnGetWeather;
-    private Button btnForecast;
-    private TextView weatherResult;
-    private Button btnAddToFavorites;
-    private String selectedCity = null;
+    private TextView cityTextView;
+    private RecyclerView favoritesRecyclerView;
+    private FavoriteCityAdapter adapter;
 
-    private final String API_KEY = "d46eae5769b4f02b93e8090c1342f323";
+    private String selectedCity;
+
+    private final List<WeatherResponse> favoriteCitiesList = new ArrayList<>();
+    private final HashMap<String, WeatherResponse> cityToWeatherMap = new HashMap<>();
+
+    private AppDatabase db;
+    private FavoriteCityDao favoriteCityDao;
+    private EditText cityInput;
+    private Button btnGetWeather, btnForecast, btnAddToFavorites;
+    private TextView weatherResult;
+    private RecyclerView recyclerFavorites;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        cityTextView = findViewById(R.id.cityInput);
+        btnAddToFavorites = findViewById(R.id.btnAddToFavorites);
+        favoritesRecyclerView = findViewById(R.id.recyclerFavorites);
+
         cityInput = findViewById(R.id.cityInput);
         btnGetWeather = findViewById(R.id.btnGetWeather);
         weatherResult = findViewById(R.id.weatherResult);
+        btnAddToFavorites = findViewById(R.id.btnAddToFavorites);
+        btnForecast = findViewById(R.id.btnForecast);
+        recyclerFavorites = findViewById(R.id.recyclerFavorites);
 
-        btnGetWeather.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String city = cityInput.getText().toString().trim();
-                if (!city.isEmpty()) {
-                    getWeather(city);
-                } else {
-                    Toast.makeText(MainActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
-                }
+        db = AppDatabase.getDatabase(this);
+        favoriteCityDao = db.favoriteCityDao();
+
+        adapter = new FavoriteCityAdapter(favoriteCitiesList, this::onCityClicked);
+        favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        favoritesRecyclerView.setAdapter(adapter);
+
+        loadFavoriteCities();
+
+        btnGetWeather.setOnClickListener(v -> {
+            String city = cityInput.getText().toString().trim();
+            if (!city.isEmpty()) {
+                getWeather(city);
+            } else {
+                Toast.makeText(MainActivity.this, "Please enter a city name", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnForecast = findViewById(R.id.btnForecast);
         btnForecast.setOnClickListener(v -> {
             String city = cityInput.getText().toString().trim();
             if (!city.isEmpty()) {
                 Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
                 intent.putExtra("city", city);
                 startActivity(intent);
-                Toast.makeText(this, "Город: " + city, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(MainActivity.this, "Enter city first", Toast.LENGTH_SHORT).show();
             }
         });
 
-        btnAddToFavorites = findViewById(R.id.btnAddToFavorites);
         btnAddToFavorites.setOnClickListener(v -> {
             if (selectedCity != null) {
-                SharedPreferences prefs = getSharedPreferences("favorites", MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(selectedCity, selectedCity);
-                editor.apply();
-                Toast.makeText(MainActivity.this, selectedCity + " added to favorites", Toast.LENGTH_SHORT).show();
-                loadFavoriteCities();
-            }
-        });
-    }
+                FavoriteCity newCity = new FavoriteCity(selectedCity);
 
-    private void getWeather(String city) {
-        WeatherApiService apiService = WeatherApiClient.getClient().create(WeatherApiService.class);
+                List<FavoriteCity> current = favoriteCityDao.getAll();
+                boolean alreadyExists = false;
+                for (FavoriteCity c : current) {
+                    if (c.cityName.equalsIgnoreCase(selectedCity)) {
+                        alreadyExists = true;
+                        break;
+                    }
+                }
 
-        Call<WeatherResponse> call = apiService.getWeatherByCity(city, API_KEY, "metric");
-
-        call.enqueue(new Callback<WeatherResponse>() {
-            @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-                if (response.isSuccessful()) {
-                    WeatherResponse weather = response.body();
-                    String result = "Temperature: " + weather.main.temp + "°C\n" +
-                            "Humidity: " + weather.main.humidity + "%\n" +
-                            "Wind speed: " + weather.wind.speed + " m/s\n" +
-                            "Description: " + weather.weather.get(0).description;
-                    weatherResult.setText(result);
-                    selectedCity = city;
-                    btnAddToFavorites.setVisibility(View.VISIBLE);
+                if (!alreadyExists) {
+                    favoriteCityDao.insert(newCity);
+                    Toast.makeText(this, selectedCity + " added to favorites", Toast.LENGTH_SHORT).show();
                     loadFavoriteCities();
                 } else {
-                    weatherResult.setText("City not found.");
+                    Toast.makeText(this, selectedCity + " is already in favorites", Toast.LENGTH_SHORT).show();
                 }
             }
-
-            @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                weatherResult.setText("Error: " + t.getMessage());
-            }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override public boolean onMove(@NonNull RecyclerView recyclerView,
+                                            @NonNull RecyclerView.ViewHolder viewHolder,
+                                            @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                WeatherResponse weather = favoriteCitiesList.get(position);
+                String city = weather.getName();
+                favoriteCityDao.delete(new FavoriteCity(city));
+                loadFavoriteCities();
+                Toast.makeText(MainActivity.this, city + " removed from favorites", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(favoritesRecyclerView);
+
+        // Тестовый выбор города
+        selectedCity = "London";
+        cityTextView.setText("Selected city: " + selectedCity);
     }
 
     private void loadFavoriteCities() {
-        SharedPreferences prefs = getSharedPreferences("favorites", MODE_PRIVATE);
-        Map<String, ?> favorites = prefs.getAll();
+        List<FavoriteCity> favoriteCities = favoriteCityDao.getAll();
 
-        LinearLayout container = findViewById(R.id.favoriteCitiesContainer);
-        container.removeAllViews();
+        favoriteCitiesList.clear();
+        cityToWeatherMap.clear();
 
-        for (String city : favorites.keySet()) {
-            getWeatherCard(city, container);
+        for (FavoriteCity favorite : favoriteCities) {
+            getWeatherForFavorite(favorite.cityName);
         }
     }
 
-    private void getWeatherCard(String city, LinearLayout container) {
-        WeatherApiService apiService = WeatherApiClient.getClient().create(WeatherApiService.class);
-        Call<WeatherResponse> call = apiService.getWeatherByCity(city, API_KEY, "metric");
-
+    private void getWeatherForFavorite(String city) {
+        WeatherApiService service = WeatherApiClient.getClient().create(WeatherApiService.class);
+        Call<WeatherResponse> call = service.getWeatherByCity(city, "metric", BuildConfig.WEATHER_API_KEY);
         call.enqueue(new Callback<WeatherResponse>() {
             @Override
-            public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
+            public void onResponse(@NonNull Call<WeatherResponse> call,
+                                   @NonNull Response<WeatherResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     WeatherResponse weather = response.body();
-
-                    View card = LayoutInflater.from(MainActivity.this).inflate(R.layout.item_weather_card, container, false);
-                    TextView cityText = card.findViewById(R.id.textCity);
-                    TextView tempText = card.findViewById(R.id.textTempCard);
-
-                    cityText.setText(city);
-                    tempText.setText("Temp: " + weather.main.temp + "°C");
-
-                    card.setOnClickListener(v -> {
-                        Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
-                        intent.putExtra("city", city);
-                        startActivity(intent);
-                    });
-
-                    container.addView(card);
+                    cityToWeatherMap.put(city, weather);
+                    updateWeatherList();
+                } else {
+                    Log.e("WEATHER", "Error: " + response.message());
                 }
             }
 
             @Override
-            public void onFailure(Call<WeatherResponse> call, Throwable t) {
-                // ничего не делаем
+            public void onFailure(@NonNull Call<WeatherResponse> call, @NonNull Throwable t) {
+                Log.e("WEATHER", "Failure: " + t.getMessage());
             }
         });
     }
 
+    private void updateWeatherList() {
+        favoriteCitiesList.clear();
+        favoriteCitiesList.addAll(cityToWeatherMap.values());
+        adapter.notifyDataSetChanged();
+    }
+
+    private void onCityClicked(String city) {
+        Intent intent = new Intent(MainActivity.this, ForecastActivity.class);
+        intent.putExtra("city", city);
+        startActivity(intent);
+    }
 }

@@ -15,13 +15,6 @@ public interface WeatherApiService {
             @Query("units") String units
     );
 
-    @GET("weather")
-    Call<WeatherResponse> getCurrentWeather(
-            @Query("q") String city,
-            @Query("appid") String apiKey,
-            @Query("units") String units
-    );
-
     @GET("forecast")
     Call<ForecastResponse> getForecast(
             @Query("q") String city,

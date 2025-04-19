@@ -1,0 +1,25 @@
+<resources>
+    <!-- Основная светлая тема -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/background_color_main</item>
+        <item name="android:textColorPrimary">@color/background_color_content</item>
+
+        <!-- Цвет текста в кнопках, ссылках и других активах -->
+        <item name="android:textColorSecondary">@color/text_color</item>
+
+        <!-- Цвет фона активностей -->
+        <item name="android:background">@color/white</item>
+
+        <!-- Прочее стилизование -->
+        <item name="android:colorAccent">@color/black</item>
+    </style>
+
+    <!-- Стиль для кнопок -->
+<!--    <style name="CustomButton" parent="Widget.AppCompat.Button">-->
+<!--        <item name="android:backgroundTint">@color/background_button</item>-->
+<!--        <item name="android:textColor">@android:color/white</item>-->
+<!--        <item name="android:radius">42dp</item>-->
+<!--        <item name="android:minHeight">48dp</item>-->
+<!--    </style>-->
+
+</resources>
